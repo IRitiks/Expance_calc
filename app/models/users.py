@@ -1,12 +1,27 @@
-from core.db import Base
+
 from datetime import datetime
-from sqlalchemy import Boolean,Integer,Column,String,Float,DateTime,Text
+from sqlalchemy import Boolean,String,Float,DateTime,Text
 #from typing import List,Dict,Text
+from sqlalchemy.orm import Mapped, mapped_column,relationship
+from app.core.db import Base
+
+
 
 class User(Base):
     __tablename__ = "users"
-    id = Column(Integer,primary_key=True,autoincrement=True,index=True)
-    username=Column(String(25),nullable=False,unique=True)
-    email=Column(String(50),nullable=False)
-    password=Column(String(30),nullable=False)
+    id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,index=True)
+    username:Mapped[str]=mapped_column(String(25),nullable=False,unique=True)
+    email:Mapped[str]=mapped_column(String(50),nullable=False)
+    password:Mapped[str]=mapped_column(String(30),nullable=False)
+    created_at:Mapped[datetime]=mapped_column(DateTime,default=datetime.utcnow,nullable=False)
+    updated_at:Mapped[datetime]=mapped_column(DateTime,default=datetime.utcnow,nullable=False)
      
+transactions: Mapped[list["Transaction"]] = relationship(
+    back_populates="user",
+    cascade="all, delete-orphan"
+)
+
+categories: Mapped[list["Category"]] = relationship(
+    back_populates="user",
+    cascade="all, delete-orphan"
+)
