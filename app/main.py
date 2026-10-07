@@ -1,18 +1,19 @@
 from fastapi import FastAPI
-from .schemas.api_response import apiresponse
+from app.routers import auth, users, categories
 
-app = FastAPI()
+app = FastAPI(
+    title="Expense tracker",
+    description="Using my backend skills to buid the expense tracter ",
+    version="1.0"
+)
 
-@app.get("/users", response_model = apiresponse)
-def users():
-    response = apiresponse(userid=1, username="Sakshi",content="Food")
-    return response
-
-@app.post("/create_user", response_model=apiresponse)
-def create_user():
-    return apiresponse(userid=2, username="Sachin",content="comedy")
+app.include_router(auth.router)
+app.include_router(users.router)
+app.include_router(categories.router)
 
 
-@app.put("/users/{user_id}", response_model=apiresponse)
-def update_user(user_id:int):
-    return apiresponse(userid=2, username="Shiva",content="rommance")  
+@app.get("/health")
+def health_check():
+    return {
+        "status": "ok"
+    }

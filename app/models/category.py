@@ -8,15 +8,15 @@ from sqlalchemy.orm import Mapped, mapped_column,relationship
 from app.core.db import Base
 
 
-class Category_type(str,Enum):
+class CategoryType(str,Enum):
     EXPENSE="expense"
     INCOME="income"
 
 class Category(Base):
     __tablename__ = "categories"
-    id:Mapped[int]=mapped_column(primary_key=True,autoincrement=True,index=True)
+    category_id:Mapped[int]=mapped_column(primary_key=True,autoincrement=True,index=True)
     name:Mapped[str]=mapped_column(String(50),nullable=False)
-    trnx_type:Mapped[Category_type]=mapped_column(SQLEnum(Category_type),nullable=False)
+    trnx_type:Mapped[CategoryType]=mapped_column(SQLEnum(CategoryType),nullable=False)
     user_id:Mapped[int]=mapped_column(ForeignKey("users.id",ondelete="CASCADE"),index=True,nullable=False)
     created_at:Mapped[datetime]=mapped_column(DateTime,default=datetime.utcnow,nullable=False)
     
