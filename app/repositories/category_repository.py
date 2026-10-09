@@ -9,7 +9,7 @@ class CategoryRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def create(self, category: Category) -> Category:
+    def save(self, category: Category) -> Category:
         self.db.add(category)
         self.db.commit()
         self.db.refresh(category)
@@ -18,12 +18,12 @@ class CategoryRepository:
 
     def get_by_id(
         self,
-        category_id: int,
+        categories_id: int,
         user_id: int,
     ) -> Category | None:
 
         statement = select(Category).where(
-            Category.id == category_id,
+            Category.category_id == categories_id,
             Category.user_id == user_id,
         )
 

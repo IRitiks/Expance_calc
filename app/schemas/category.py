@@ -8,8 +8,8 @@ class CategoryCreate(BaseModel):
         min_length=1,
         max_length=100
     )
-
-    type: CategoryType
+    # user_id:int
+    trnx_type: CategoryType = Field(..., validation_alias="type")
 
 class CategoryUpdate(BaseModel):
     name: str | None = Field(
@@ -18,12 +18,12 @@ class CategoryUpdate(BaseModel):
         max_length=100
     )
 
-    type: CategoryType | None = None
+    trnx_type: CategoryType | None = None
 
 class CategoryResponse(BaseModel):
-    id: int
+    category_id: int
     name: str
-    type: CategoryType
+    trnx_type: CategoryType
 
     model_config = {
         "from_attributes": True

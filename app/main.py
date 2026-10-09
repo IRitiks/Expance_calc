@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from app.routers import auth, users, categories
+
+from app.routers import auth, users, categories,transactions
 
 app = FastAPI(
     title="Expense tracker",
@@ -10,6 +11,7 @@ app = FastAPI(
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(categories.router)
+app.include_router(transactions.router)
 
 
 @app.get("/health")

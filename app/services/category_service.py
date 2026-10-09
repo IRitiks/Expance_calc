@@ -19,7 +19,7 @@ class CategoryService:
 
         category = Category(
             name=category_data.name,
-            type=category_data.type,
+            trnx_type=category_data.trnx_type,
             user_id=user_id,
         )
 
@@ -66,8 +66,8 @@ class CategoryService:
         if category_data.name is not None:
             category.name = category_data.name
 
-        if category_data.type is not None:
-            category.type = category_data.type
+        if category_data.trnx_type is not None:
+            category.type = category_data.trnx_type
 
         return self.repository.save(category)
 

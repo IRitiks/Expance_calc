@@ -31,7 +31,7 @@ def create_category(
 
     return service.create(
         category_data,
-        current_user.id,
+        current_user.id
     )
 
 @router.get(
